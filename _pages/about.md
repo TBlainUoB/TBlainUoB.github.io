@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Welcome to my personal website"
+title: "Tom Blain Data Science & ML Blog"
 excerpt: "About me"
 author_profile: true
 redirect_from:
