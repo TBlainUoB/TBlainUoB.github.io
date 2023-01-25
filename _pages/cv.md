@@ -8,4 +8,3 @@ redirect_from:
 ---
 
 treee
-# <a href="https://TBlainUoB.github.io/CV-1.pdf" target="_blank">PDF.</a>
