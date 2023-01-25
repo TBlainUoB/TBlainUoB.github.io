@@ -7,19 +7,13 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Your Name / Site Title"
+title                    : "Tom Blain"
 title_separator          : "-"
-<<<<<<< HEAD
 name                     : &name "Tom Blain"
 description              : &description "Msci Mathematics student at University of Bristol"
 url                      : https://TBLainUoB.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-=======
-name                     : &name "Your Name"
-description              : &description "personal description"
-url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
->>>>>>> parent of 9604513 (Update _config.yml)
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "TBlainUoB/TBlainUoB.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -94,7 +88,7 @@ author:
   pubmed           :
   googlescholar    :
   email            : "thomas.blain01@outlook.com"
-  researchgate     :
+  researchgate     : 
   uri              :
   bitbucket        :
   codepen          :
@@ -181,18 +175,18 @@ kramdown:
 
 # Collections
 collections:
-  #teaching:
-  #  output: true
-  #  permalink: /:collection/:path/
-  #publications:
-  #  output: true
-  #  permalink: /:collection/:path/
+  teaching:
+    output: true
+    permalink: /:collection/:path/
+  publications:
+    output: true
+    permalink: /:collection/:path/
   portfolio:
     output: true
     permalink: /:collection/:path/
-  #talks:
-  #  output: true
-  #  permalink: /:collection/:path/
+  talks:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
@@ -209,30 +203,30 @@ defaults:
       share: true
       related: true
   # _pages
-  #- scope:
-  #    path: ""
-  #    type: pages
-  #  values:
-  #    layout: single
-  #    author_profile: true
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
   # _teaching
-  #- scope:
-  #    path: ""
-  #    type: teaching
-  #  values:
-  #    layout: single
-  #    author_profile: true
-  #    share: true
-  #    comments: true
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
   # _publications
-  #- scope:
-  #    path: ""
-  #    type: publications
-  #  values:
-  #    layout: single
-  #    author_profile: true
-  #    share: true
-  #    comments: true
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
   # _portfolio
   - scope:
       path: ""
@@ -243,13 +237,13 @@ defaults:
       share: true
       comment: true
   # _talks
-  #- scope:
-  #    path: ""
-  #    type: talks
-  #  values:
-  #    layout: talk
-  #    author_profile: true
-  #    share: true
+  - scope:
+      path: ""
+      type: talks
+    values:
+      layout: talk
+      author_profile: true
+      share: true
 
 # Sass/SCSS
 sass:
