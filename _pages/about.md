@@ -10,5 +10,3 @@ redirect_from:
 
 This is a website where I post my current research interests and areas of study,
 I'm currently a masters student in mathematics at the University of Bristol, with a strong focus on Machine learning and Data Science.
-gggss
-ssff
