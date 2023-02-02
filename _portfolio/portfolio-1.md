@@ -1,5 +1,5 @@
 ---
-title: "Bootstrapping Paper (pdf)"
+title: "Bootstrapping (pdf)"
 excerpt: "I've learnt about bootstrapping as a statistical concept for years now, yet never been sure how to justify applying the technique. In this paper I investigate bootstrapping further to gain some insight into uses and attempt to understand reasons for choosing this method."
 collection: portfolio
 permalink: /portfolio/bootstrap
