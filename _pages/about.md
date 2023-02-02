@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Tom Blain Data Science & ML Blog"
+title: "Tom Blain Data Science & ML Resume"
 excerpt: "About me"
 author_profile: true
 redirect_from:
@@ -11,7 +11,9 @@ redirect_from:
 This is a website where I post my current research interests and areas of study,
 I'm currently a masters student in mathematics at the University of Bristol, with a strong focus on Machine learning and Data Science.
 
-Current projects I am working on:
+---
+
+#Current projects I am working on:
 
 Predicting IMDb movie ratings: Using a web crawler to gather a dataset of movie titles - selected movies produced in the UK and US between 2000-2022 for the data. Using https://omdbapi.com/ to gather features from the titles in my dataset.
 Features include: Title, Genres, Plot, Year, Actors.
