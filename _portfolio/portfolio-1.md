@@ -4,4 +4,4 @@ excerpt: "Was recently tasked with writing a paper about an area of data science
 collection: portfolio
 permalink: /portfolio/bootstrap
 ---
-[Link to pdf paper](files/Bootstrapping___Data_Science_portfolio-7.pdf)
+[Link to pdf paper](http://TBlainUoB.github.io/files/Bootstrapping___Data_Science_portfolio-7.pdf)
