@@ -4,3 +4,4 @@ excerpt: "Was recently tasked with writing a paper about an area of data science
 collection: portfolio
 permalink: /files/Bootstrapping___Data_Science_portfolio-7.pdf
 ---
+[linktext](files/Bootstrapping___Data_Science_portfolio-7.pdf)
