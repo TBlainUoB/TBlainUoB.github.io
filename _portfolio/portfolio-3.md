@@ -1,5 +1,5 @@
 ---
-title: "Predict driver insurance claim (python)"
+title: "Predict Driver Insurance Claims (python)"
 excerpt: "Based off the kaggle competition 'PortoSegura Safe Driving', we implemented ML models to predict if a driver was likely to file an insurance claim"
 collection: portfolio
 permalink: /portfolio/InsurancePrediction
