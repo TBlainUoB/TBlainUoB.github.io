@@ -1,9 +1,8 @@
 ---
-title: "Adaptive Learning Rate Methods for Stochastic
-Gradient Descent and Vanishing Gradient Problems
-from Backpropagation (pdf)"
-excerpt: "Data science research paper covering topics of Adaptive learning rate methods such as Adam AdaGrad, and the vanishing gradient problem for activation functions in Neural Networks"
+title: "Advancements in Variational Inference: Methods,
+Optimisation Techniques, and Applications (pdf)"
+excerpt: "Masters Thesis project. Large literature review surrounding variational inference, an optimisation based method for finding an approximation for a posterior. Topics contained including Adaptive learning rate gradient descent and variance reduction methods for GD, Reparameterization trick and automatic differentiation."
 collection: portfolio
-permalink: /portfolio/IMDb
+permalink: /portfolio/VarInf
 ---
-[Link to pdf paper](http://TBlainUoB.github.io/files/DST_Portfolio_B-1.pdf)
+[Link to pdf paper](http://TBlainUoB.github.io/files/Advancements_in_Variational_Inference__Methods__Optimisation_Techniques__and_Applications.pdf)
