@@ -1,5 +1,5 @@
 ---
-title: "IMDb Rating Prediction (python)"
+title: "IMDb Rating Prediction (Python)"
 excerpt: "Group project to create a ML model for predicting IMDb ratings of film, based on data such as title, plot, actors, year, genre"
 collection: portfolio
 permalink: /portfolio/IMDb
