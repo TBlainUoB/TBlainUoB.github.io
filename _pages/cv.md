@@ -7,4 +7,4 @@ redirect_from:
   - /resume
 ---
 
-<a href="https://TBlainUoB.github.io/files/CV-1.pdf" target="_blank">PDF.</a>
+<a href="https://TBlainUoB.github.io/files/CV.pdf" target="_blank">PDF.</a>
