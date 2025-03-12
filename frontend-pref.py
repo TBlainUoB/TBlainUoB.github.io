@@ -3,11 +3,11 @@ import pandas as pd
 import io
 from datetime import datetime
 
-    # Configure the page
+    # Configure the page with wider layout
 st.set_page_config(
     page_title="Text Preference Tool",
     page_icon="📝",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed",
     menu_items={
         'About': "Text Preference Selection Tool"
@@ -22,16 +22,21 @@ st.markdown("""
         max-width: 900px;
         margin: 0 auto;
     }
+    .main {
+        padding: 1rem;
+    }
     .comparison-box {
         background-color: #f8f9fa;
         border-radius: 10px;
-        padding: 1rem;
+        padding: 1.5rem;
         width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border: 2px solid transparent;
-        height: 200px;
+        height: 300px;
         overflow-y: auto;
         margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+        line-height: 1.6;
     }
     .comparison-box:hover {
         border-color: #bbdefb;
@@ -39,12 +44,47 @@ st.markdown("""
     .original-text {
         background-color: #e3f2fd;
         border-radius: 10px;
-        padding: 1rem;
+        padding: 1.5rem;
         margin-bottom: 1rem;
-        max-height: 150px;
+        max-height: 200px;
         overflow-y: auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-left: 5px solid #1976d2;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+    /* Scrollbar styling for better UX */
+    .comparison-box::-webkit-scrollbar, .original-text::-webkit-scrollbar {
+        width: 8px;
+    }
+    .comparison-box::-webkit-scrollbar-track, .original-text::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .comparison-box::-webkit-scrollbar-thumb, .original-text::-webkit-scrollbar-thumb {
+        background: #aaa;
+        border-radius: 10px;
+    }
+    .comparison-box::-webkit-scrollbar-thumb:hover, .original-text::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+    /* Indicator for scrollable content */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #1976d2;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        opacity: 0.8;
+    }
+    /* Layout options */
+    .view-toggle {
+        text-align: right;
+        margin-bottom: 10px;
     }
     .header-container {
         text-align: center;
@@ -140,8 +180,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def main():
-    # Header section
-    st.markdown("<div class='header-container'><h1>Text Preference Tool</h1><p>Compare text variations and select your preferences</p></div>", unsafe_allow_html=True)
+    # Header section - more compact
+    st.markdown("<div style='text-align: center; margin-bottom: 20px;'><h1>Text Preference Tool</h1></div>", unsafe_allow_html=True)
     
     # Initialize session state variables if they don't exist
     if 'data' not in st.session_state:
@@ -156,6 +196,8 @@ def main():
         st.session_state.file_extension = None
     if 'comparison_complete' not in st.session_state:
         st.session_state.comparison_complete = False
+    if 'text_size' not in st.session_state:
+        st.session_state.text_size = 'medium' # Default text size
     
     # File upload section
     if st.session_state.data is None:
@@ -200,7 +242,7 @@ def main():
                         
                         # Display brief success message and automatically proceed
                         with st.spinner("Starting comparisons..."):
-                            st.experimental_rerun()
+                            st.rerun()
             except Exception as e:
                 st.error(f"Error: {e}")
         
@@ -212,57 +254,145 @@ def main():
         data = st.session_state.data
         current_idx = st.session_state.current_index
         
+        # Initialize view mode if not already set
+        if 'view_mode' not in st.session_state:
+            st.session_state.view_mode = "side_by_side"
+        
         if current_idx < len(data):
-            # Create a fixed container for the comparison interface
-            st.markdown("<div class='comparison-container'>", unsafe_allow_html=True)
-            
             # Display progress at the top
             progress_text = f"Comparison {current_idx + 1} of {len(data)}"
             st.markdown(f"<div style='text-align: center;'><h3>{progress_text}</h3></div>", unsafe_allow_html=True)
             progress_value = (current_idx) / (len(data) - 1) if len(data) > 1 else 1.0
             progress_bar = st.progress(progress_value)
             
+            # Display settings for text size
+            col_size, col_toggle = st.columns([4, 1])
+            
+            # Add text size control
+            with col_size:
+                text_size_options = {
+                    "Small": "small", 
+                    "Medium": "medium", 
+                    "Large": "large"
+                }
+                selected_size = st.select_slider(
+                    "Text size:",
+                    options=list(text_size_options.keys()),
+                    value="Medium" if st.session_state.text_size == "medium" else 
+                         "Small" if st.session_state.text_size == "small" else "Large"
+                )
+                st.session_state.text_size = text_size_options[selected_size]
+                
+                # Apply text size dynamically with JavaScript
+                text_size_px = {
+                    "small": "0.9rem",
+                    "medium": "1.05rem",
+                    "large": "1.3rem"
+                }[st.session_state.text_size]
+                
+                st.markdown(f"""
+                <script>
+                    document.addEventListener('DOMContentLoaded', (event) => {{
+                        const boxes = document.querySelectorAll('.comparison-box, .original-text');
+                        boxes.forEach(box => {{
+                            box.style.fontSize = '{text_size_px}';
+                        }});
+                    }});
+                </script>
+                """, unsafe_allow_html=True)
+            
+            # View toggle option
+            with col_toggle:
+                st.markdown("<div class='view-toggle'>", unsafe_allow_html=True)
+                # Toggle between side-by-side and vertical views
+                view_options = {"Side-by-side": "side_by_side", "Vertical": "vertical"}
+                selected_view = st.radio("View Mode:", list(view_options.keys()), horizontal=True, 
+                                         index=0 if st.session_state.view_mode == "side_by_side" else 1, 
+                                         label_visibility="collapsed")
+                st.session_state.view_mode = view_options[selected_view]
+                st.markdown("</div>", unsafe_allow_html=True)
+            
             # Display original text
             st.markdown("<h4>Original Text</h4>", unsafe_allow_html=True)
             original_text = data.iloc[current_idx, 0]
             st.markdown(f"<div class='original-text'>{original_text}</div>", unsafe_allow_html=True)
             
-            # Display variations for comparison
+            # Display variations for comparison based on view mode
             st.markdown("<h4>Which variation do you prefer?</h4>", unsafe_allow_html=True)
             
-            # Create columns for A and B
-            col1, col2 = st.columns(2)
-            
-            with col1:
+            if st.session_state.view_mode == "side_by_side":
+                # Side-by-side view
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.markdown("<div class='variation-label label-a'>Variation A</div>", unsafe_allow_html=True)
+                    variation_a = data.iloc[current_idx, 1]
+                    
+                    # Create a container for the text with scroll indicator
+                    st.markdown(f"""
+                    <div style="position: relative;">
+                        <div class='comparison-box'>{variation_a}</div>
+                        <div class='scroll-indicator'>Scroll for more ↓</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    choose_a = st.button("Choose A", type="primary", key="choose_a", use_container_width=True)
+                
+                with col2:
+                    st.markdown("<div class='variation-label label-b'>Variation B</div>", unsafe_allow_html=True)
+                    variation_b = data.iloc[current_idx, 2]
+                    
+                    # Create a container for the text with scroll indicator
+                    st.markdown(f"""
+                    <div style="position: relative;">
+                        <div class='comparison-box'>{variation_b}</div>
+                        <div class='scroll-indicator'>Scroll for more ↓</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    choose_b = st.button("Choose B", type="primary", key="choose_b", use_container_width=True)
+            else:
+                # Vertical view for better comparison of long text
+                # Variation A
                 st.markdown("<div class='variation-label label-a'>Variation A</div>", unsafe_allow_html=True)
                 variation_a = data.iloc[current_idx, 1]
-                st.markdown(f"<div class='comparison-box'>{variation_a}</div>", unsafe_allow_html=True)
+                
+                # Create a container for the text with scroll indicator
+                st.markdown(f"""
+                <div style="position: relative;">
+                    <div class='comparison-box'>{variation_a}</div>
+                    <div class='scroll-indicator'>Scroll for more ↓</div>
+                </div>
+                """, unsafe_allow_html=True)
                 choose_a = st.button("Choose A", type="primary", key="choose_a", use_container_width=True)
-            
-            with col2:
+                
+                # Variation B
+                st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
                 st.markdown("<div class='variation-label label-b'>Variation B</div>", unsafe_allow_html=True)
                 variation_b = data.iloc[current_idx, 2]
-                st.markdown(f"<div class='comparison-box'>{variation_b}</div>", unsafe_allow_html=True)
+                
+                # Create a container for the text with scroll indicator
+                st.markdown(f"""
+                <div style="position: relative;">
+                    <div class='comparison-box'>{variation_b}</div>
+                    <div class='scroll-indicator'>Scroll for more ↓</div>
+                </div>
+                """, unsafe_allow_html=True)
                 choose_b = st.button("Choose B", type="primary", key="choose_b", use_container_width=True)
-            
-            # Close the fixed container
-            st.markdown("</div>", unsafe_allow_html=True)
             
             # Handle selection
             if choose_a:
                 st.session_state.preferences[current_idx] = 'A'
                 st.session_state.current_index += 1
-                st.experimental_rerun()
+                st.rerun()
             
             elif choose_b:
                 st.session_state.preferences[current_idx] = 'B'
                 st.session_state.current_index += 1
-                st.experimental_rerun()
+                st.rerun()
         
         else:
             # All comparisons are done
             st.session_state.comparison_complete = True
-            st.experimental_rerun()
+            st.rerun()
     
     # Results and download section
     else:
@@ -305,7 +435,7 @@ def main():
             # Reset session state
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
-            st.experimental_rerun()
+            st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
     
     # Footer
