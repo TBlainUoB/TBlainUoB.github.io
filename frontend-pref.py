@@ -3,7 +3,7 @@ import pandas as pd
 import io
 from datetime import datetime
 
-    # Configure the page with wider layout
+# Configure the page with wider layout
 st.set_page_config(
     page_title="Text Preference Tool",
     page_icon="📝",
@@ -17,11 +17,6 @@ st.set_page_config(
 # Apply custom CSS for better appearance
 st.markdown("""
 <style>
-    .main {
-        padding: 2rem;
-        max-width: 900px;
-        margin: 0 auto;
-    }
     .main {
         padding: 1rem;
     }
@@ -95,57 +90,12 @@ st.markdown("""
         text-align: right;
         margin-bottom: 10px;
     }
-    .header-container {
-        text-align: center;
-        padding: 1rem 0 2rem 0;
-        border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 2rem;
-    }
-    .footer {
-        text-align: center;
-        margin-top: 3rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e0e0e0;
-        color: #757575;
-        font-size: 0.9rem;
-    }
-    .variation-label {
-        display: inline-block;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-    .label-a {
-        background-color: #e3f2fd;
-        color: #1976d2;
-        border: 1px solid #1976d2;
-    }
-    .label-b {
-        background-color: #f3e5f5;
-        color: #7b1fa2;
-        border: 1px solid #7b1fa2;
-    }
     .card {
         background-color: white;
         border-radius: 10px;
         padding: 1rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         margin-bottom: 1rem;
-    }
-    /* Fixed container for the comparison interface */
-    .comparison-container {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 0 1rem;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        max-width: 900px;
-        margin: 0 auto;
     }
     /* Make the page content area have proper spacing */
     .main .block-container {
@@ -184,6 +134,31 @@ st.markdown("""
         padding: 2rem;
         text-align: center;
         margin: 2rem 0;
+    }
+    .variation-label {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .label-a {
+        background-color: #e3f2fd;
+        color: #1976d2;
+        border: 1px solid #1976d2;
+    }
+    .label-b {
+        background-color: #f3e5f5;
+        color: #7b1fa2;
+        border: 1px solid #7b1fa2;
+    }
+    .footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        color: #757575;
+        font-size: 0.9rem;
     }
 </style>
 """, unsafe_allow_html=True)
