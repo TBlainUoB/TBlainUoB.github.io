@@ -25,6 +25,19 @@ st.markdown("""
     .main {
         padding: 1rem;
     }
+    /* Dynamic text size classes */
+    .text-small {
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+    }
+    .text-medium {
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+    }
+    .text-large {
+        font-size: 1.3rem !important;
+        line-height: 1.7 !important;
+    }
     .comparison-box {
         background-color: #f8f9fa;
         border-radius: 10px;
@@ -35,8 +48,6 @@ st.markdown("""
         height: 300px;
         overflow-y: auto;
         margin-bottom: 0.5rem;
-        font-size: 1.05rem;
-        line-height: 1.6;
     }
     .comparison-box:hover {
         border-color: #bbdefb;
@@ -50,8 +61,6 @@ st.markdown("""
         overflow-y: auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-left: 5px solid #1976d2;
-        font-size: 1.05rem;
-        line-height: 1.6;
     }
     /* Scrollbar styling for better UX */
     .comparison-box::-webkit-scrollbar, .original-text::-webkit-scrollbar {
@@ -242,7 +251,7 @@ def main():
                         
                         # Display brief success message and automatically proceed
                         with st.spinner("Starting comparisons..."):
-                            st.rerun()
+                            st.experimental_rerun()
             except Exception as e:
                 st.error(f"Error: {e}")
         
@@ -282,24 +291,6 @@ def main():
                          "Small" if st.session_state.text_size == "small" else "Large"
                 )
                 st.session_state.text_size = text_size_options[selected_size]
-                
-                # Apply text size dynamically with JavaScript
-                text_size_px = {
-                    "small": "0.9rem",
-                    "medium": "1.05rem",
-                    "large": "1.3rem"
-                }[st.session_state.text_size]
-                
-                st.markdown(f"""
-                <script>
-                    document.addEventListener('DOMContentLoaded', (event) => {{
-                        const boxes = document.querySelectorAll('.comparison-box, .original-text');
-                        boxes.forEach(box => {{
-                            box.style.fontSize = '{text_size_px}';
-                        }});
-                    }});
-                </script>
-                """, unsafe_allow_html=True)
             
             # View toggle option
             with col_toggle:
@@ -315,7 +306,7 @@ def main():
             # Display original text
             st.markdown("<h4>Original Text</h4>", unsafe_allow_html=True)
             original_text = data.iloc[current_idx, 0]
-            st.markdown(f"<div class='original-text'>{original_text}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='original-text text-{st.session_state.text_size}'>{original_text}</div>", unsafe_allow_html=True)
             
             # Display variations for comparison based on view mode
             st.markdown("<h4>Which variation do you prefer?</h4>", unsafe_allow_html=True)
@@ -331,7 +322,7 @@ def main():
                     # Create a container for the text with scroll indicator
                     st.markdown(f"""
                     <div style="position: relative;">
-                        <div class='comparison-box'>{variation_a}</div>
+                        <div class='comparison-box text-{st.session_state.text_size}'>{variation_a}</div>
                         <div class='scroll-indicator'>Scroll for more ↓</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -344,7 +335,7 @@ def main():
                     # Create a container for the text with scroll indicator
                     st.markdown(f"""
                     <div style="position: relative;">
-                        <div class='comparison-box'>{variation_b}</div>
+                        <div class='comparison-box text-{st.session_state.text_size}'>{variation_b}</div>
                         <div class='scroll-indicator'>Scroll for more ↓</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -358,7 +349,7 @@ def main():
                 # Create a container for the text with scroll indicator
                 st.markdown(f"""
                 <div style="position: relative;">
-                    <div class='comparison-box'>{variation_a}</div>
+                    <div class='comparison-box text-{st.session_state.text_size}'>{variation_a}</div>
                     <div class='scroll-indicator'>Scroll for more ↓</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -372,7 +363,7 @@ def main():
                 # Create a container for the text with scroll indicator
                 st.markdown(f"""
                 <div style="position: relative;">
-                    <div class='comparison-box'>{variation_b}</div>
+                    <div class='comparison-box text-{st.session_state.text_size}'>{variation_b}</div>
                     <div class='scroll-indicator'>Scroll for more ↓</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -382,17 +373,17 @@ def main():
             if choose_a:
                 st.session_state.preferences[current_idx] = 'A'
                 st.session_state.current_index += 1
-                st.rerun()
+                st.experimental_rerun()
             
             elif choose_b:
                 st.session_state.preferences[current_idx] = 'B'
                 st.session_state.current_index += 1
-                st.rerun()
+                st.experimental_rerun()
         
         else:
             # All comparisons are done
             st.session_state.comparison_complete = True
-            st.rerun()
+            st.experimental_rerun()
     
     # Results and download section
     else:
@@ -435,7 +426,7 @@ def main():
             # Reset session state
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
-            st.rerun()
+            st.experimental_rerun()
         st.markdown("</div>", unsafe_allow_html=True)
     
     # Footer
